@@ -8,7 +8,7 @@ const { send_email } = require('../controller/appController.js')
 router.post('/send_email', send_email);
 
 router.get( '/' , (req , res) => {
-    res.sendFile( path.join( __dirname , '..' , 'public' , 'index.html') );
+    res.sendFile( path.join( __dirname , '../public' , 'index.html') );
 } );
 
 
