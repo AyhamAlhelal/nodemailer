@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node netlify/functions/server.js",
     "build": "npm install"
   },
   "keywords": [],
