@@ -1,5 +1,5 @@
 const express = require('express');
-const appRoute = require('../routes/route.js');
+const appRoute = require('../../routes/route.js');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/', appRoute);
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../../public')));
 
 /** routes */
 app.use('/api', appRoute);
