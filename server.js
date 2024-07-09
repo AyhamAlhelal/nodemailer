@@ -23,6 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 /** routes */
 app.use('/api', appRoute);
 
+// Handle 404 errors by redirecting to the root path
+app.use((req, res, next) => {
+    res.redirect('/');
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
