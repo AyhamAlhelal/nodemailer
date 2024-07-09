@@ -29,9 +29,9 @@ app.use((req, res, next) => {
     res.redirect('/');
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
-})
+// app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`)
+// })
 
 
 module.exports.handler = serverless(app);
