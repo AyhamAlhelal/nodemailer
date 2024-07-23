@@ -43,84 +43,75 @@ console.log( all_problems );
  let dataList = [
     {
         "Bus" : busNumber,
-        "Sending Date" : date,
-        "Travle Date": travleDate,
+        "Skickat" : date,
+        "Resedatum": travleDate,
         "Status": approvalStatus
     }
 ];
-console.log( approvalStatus )
+
  if( approvalStatus === "ej godkänd" ){
     dataList = [
         {
             "Bus" : busNumber,
-            "Sending Date" : date,
-            "Travle Date": travleDate, 
-            "Problems" : all_problems,
-            "Description": comment,
+            "Skickat" : date,
+            "Resedatum": travleDate, 
+            "Problem" : all_problems,
+            "Beskrivning": comment,
             "Status": approvalStatus
         }
     ];
 
  }
+ let response = {
+    body: {
+        name : nameList[recipient],
+        intro: "Your bus Report arrived!",
+        table : {
+            data : dataList
+        },
+        outro: "Thank you in advane!"
+    }
+}
+
 //  let response = {
 //     body: {
 //         name : nameList[recipient],
-//         intro: "Your bus Report arrived!",
+//         intro: "Din bussrapport har kommit!!",
+//         Sending : date,
+//         trip: travleDate,
+//         Description : comment,
 //         table : {
 //             data : [
 //                 {
 //                     "Bus" : busNumber,
-//                     "Sending Date" : date,
-//                     "Travle Date": travleDate, 
-//                     "Problems" : all_problems,
-//                     "Description": comment,
+//                     "Problem" : all_problems,
 //                     "Status": approvalStatus
 //                 }
 //             ]
 //         },
-//         outro: "Thank you in advane!"
+//         outro: "Tack på förhand!"
 //     }
 // }
-
- let response = {
-    body: {
-        name : nameList[recipient],
-        intro: "Din bussrapport har kommit!!",
-        Sending : date,
-        trip: travleDate,
-        Description : comment,
-        table : {
-            data : [
-                {
-                    "Bus" : busNumber,
-                    "Problem" : all_problems,
-                    "Status": approvalStatus
-                }
-            ]
-        },
-        outro: "Tack på förhand!"
-    }
-}
-    let response_2 = {
-        body: {
-            name : nameList[recipient],
-            intro: "Din bussrapport har kommit!",
-            Sending : date,
-            trip: travleDate,
-            table : {
-                data : [
-                    {
-                        "Bus" : busNumber,
-                        "Status": approvalStatus
-                    }
-                ]
-            },
-            outro: "Tack på förhand!"
-        }
-    }
+//     let response_2 = {
+//         body: {
+//             name : nameList[recipient],
+//             intro: "Din bussrapport har kommit!",
+//             Sending : date,
+//             trip: travleDate,
+//             table : {
+//                 data : [
+//                     {
+//                         "Bus" : busNumber,
+//                         "Status": approvalStatus
+//                     }
+//                 ]
+//             },
+//             outro: "Tack på förhand!"
+//         }
+//     }
   
-    // let mail = MailGenerator.generate(response);
-    let mail = approvalStatus === "godkänd" ? MailGenerator.generate(response_2): MailGenerator.generate(response);
+    let mail = MailGenerator.generate(response);
+    // let mail = approvalStatus === "godkänd" ? MailGenerator.generate(response_2): MailGenerator.generate(response);
 
     let message = {
         from : EMAIL,
