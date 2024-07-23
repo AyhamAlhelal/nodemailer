@@ -10,7 +10,7 @@ const PASSWORD = process.env.PASSWORD;
 const send_email = (req, res) => {
 
 
-    const { recipient, busNumber, date, problems, comment } = req.body;
+    const { recipient, busNumber, date, problems, comment, travleDate, approvalStatus } = req.body;
   
 
     const nameList = { "a_alhelal@hotmail.com" : "Madeleine Dannqqvist",
@@ -39,30 +39,93 @@ const send_email = (req, res) => {
 let all_problems ="";
 problems.forEach(  (problem )=> { all_problems+= `<p>${problem}</p>\n`;  });
 console.log( all_problems );
-    let response = {
+
+ let dataList = [
+    {
+        "Bus" : busNumber,
+        "Sending Date" : date,
+        "Travle Date": travleDate,
+        "Status": approvalStatus
+    }
+];
+console.log( approvalStatus )
+ if( approvalStatus === "ej godkänd" ){
+    dataList = [
+        {
+            "Bus" : busNumber,
+            "Sending Date" : date,
+            "Travle Date": travleDate, 
+            "Problems" : all_problems,
+            "Description": comment,
+            "Status": approvalStatus
+        }
+    ];
+
+ }
+//  let response = {
+//     body: {
+//         name : nameList[recipient],
+//         intro: "Your bus Report arrived!",
+//         table : {
+//             data : [
+//                 {
+//                     "Bus" : busNumber,
+//                     "Sending Date" : date,
+//                     "Travle Date": travleDate, 
+//                     "Problems" : all_problems,
+//                     "Description": comment,
+//                     "Status": approvalStatus
+//                 }
+//             ]
+//         },
+//         outro: "Thank you in advane!"
+//     }
+// }
+
+ let response = {
+    body: {
+        name : nameList[recipient],
+        intro: "Din bussrapport har kommit!!",
+        Sending : date,
+        trip: travleDate,
+        Description : comment,
+        table : {
+            data : [
+                {
+                    "Bus" : busNumber,
+                    "Problem" : all_problems,
+                    "Status": approvalStatus
+                }
+            ]
+        },
+        outro: "Tack på förhand!"
+    }
+}
+    let response_2 = {
         body: {
             name : nameList[recipient],
-            intro: "Your bus Report arrived!",
+            intro: "Din bussrapport har kommit!",
+            Sending : date,
+            trip: travleDate,
             table : {
                 data : [
                     {
                         "Bus" : busNumber,
-                        "Date" : date,
-                        "Problems" : all_problems,
-                        "Description": comment,
+                        "Status": approvalStatus
                     }
                 ]
             },
-            outro: "Thank you in advane!"
+            outro: "Tack på förhand!"
         }
     }
-
-    let mail = MailGenerator.generate(response);
+  
+    // let mail = MailGenerator.generate(response);
+    let mail = approvalStatus === "godkänd" ? MailGenerator.generate(response_2): MailGenerator.generate(response);
 
     let message = {
         from : EMAIL,
         to : recipient,
-        subject: "Bus Problem Report",
+        subject: "Rapport om bussproblem",
         html: mail
     }
 
