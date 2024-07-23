@@ -65,53 +65,16 @@ console.log( all_problems );
  let response = {
     body: {
         name : nameList[recipient],
-        intro: "Your bus Report arrived!",
+        intro: "Din bussrapport har kommit!",
         table : {
             data : dataList
         },
-        outro: "Thank you in advane!"
+        outro: "Tack på förhand!"
     }
 }
 
-//  let response = {
-//     body: {
-//         name : nameList[recipient],
-//         intro: "Din bussrapport har kommit!!",
-//         Sending : date,
-//         trip: travleDate,
-//         Description : comment,
-//         table : {
-//             data : [
-//                 {
-//                     "Bus" : busNumber,
-//                     "Problem" : all_problems,
-//                     "Status": approvalStatus
-//                 }
-//             ]
-//         },
-//         outro: "Tack på förhand!"
-//     }
-// }
-//     let response_2 = {
-//         body: {
-//             name : nameList[recipient],
-//             intro: "Din bussrapport har kommit!",
-//             Sending : date,
-//             trip: travleDate,
-//             table : {
-//                 data : [
-//                     {
-//                         "Bus" : busNumber,
-//                         "Status": approvalStatus
-//                     }
-//                 ]
-//             },
-//             outro: "Tack på förhand!"
-//         }
-//     }
   
     let mail = MailGenerator.generate(response);
-    // let mail = approvalStatus === "godkänd" ? MailGenerator.generate(response_2): MailGenerator.generate(response);
 
     let message = {
         from : EMAIL,

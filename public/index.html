@@ -217,9 +217,9 @@
                                     <label for="busNumber" class="text_color">Bil Nummer (Format: ABC123):</label>
                                     <input type="text" id="busNumber" maxlength="6" pattern="[A-Za-z]{3}[0-9]{3}" required title="The format should be ABC123, where ABC are letters and 123 are numbers.">
                                     <br><br>
-                                    <label for="dateField" class="text_color">Datum:</label>
+                                    <label for="dateField" class="text_color">skicka datum</label>
                                     <input type="date" id="dateField" required>
-                                    <label for="travleDateField" class="text_color">Travle Datum:</label>
+                                    <label for="travleDateField" class="text_color">Resedatum</label>
                                     <input type="date" id="travleDateField" required>
                                     <br><br>
                                     <label class="text_color">Problem:</label>
@@ -234,31 +234,12 @@
                                         <label class="text_color"><input type="checkbox" name="problem" value="Kontroll rampkoppling"> Kontroll rampkoppling</label>
                                         <label class="text_color"><input type="checkbox" name="problem" value="Andra"> Andra</label>
                                     </div>
-
-
-
-
-
-
                                     <input type="hidden" id="approvalStatus" name="approvalStatus" value="godkänd">
-
                                     <div id="statusMessage" class="status-message approved">godkänd</div>
-
-
-
-
-
-
-                                    
                                     <label class="text_color" for="comment">Kommentarer:</label>
                                     <textarea id="comment" disabled></textarea>
-                                    
                                     <button type="submit">Skicka</button>
                                 </form>
-          
-          
-          
-          
                             </div>
       </div>
       
