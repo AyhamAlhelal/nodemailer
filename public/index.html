@@ -277,6 +277,14 @@
                 let emailGroups = {};
                 let APPROVAL_NAME = "";
                 let APPROVAL_EMAIL = "";
+                let EMAIL_GROUP_1 = "";
+                let EMAIL_GROUP_2 = "";
+                let EMAIL_GROUP_3 = "";
+                let NAME_GROUP_1 = "";
+                let NAME_GROUP_2 = "";
+                let NAME_GROUP_3 = "";
+                        
+
 
             // Function to fetch config data
             function fetchConfig() {
@@ -286,13 +294,23 @@
                         emailGroups =   JSON.parse(JSON.stringify( data.emailGroups ));
                         APPROVAL_EMAIL = data.APPROVAL_EMAIL;
                         APPROVAL_NAME = data.APPROVAL_NAME;
-
+                        EMAIL_GROUP_1 = data.EMAIL_GROUP_1;
+                        EMAIL_GROUP_2 = data.EMAIL_GROUP_2;
+                        EMAIL_GROUP_3 = data.EMAIL_GROUP_3;
+                        NAME_GROUP_1 = data.NAME_GROUP_1;
+                        NAME_GROUP_2 = data.NAME_GROUP_2;
+                        NAME_GROUP_3 = data.NAME_GROUP_3;
                     })
                     .catch(error => console.error('Error fetching config:', error));
             }
 
             // Fetch config data on page load
             fetchConfig();
+
+            emailGroups[EMAIL_GROUP_1] = NAME_GROUP_1;
+            emailGroups[EMAIL_GROUP_2] = NAME_GROUP_2;
+            emailGroups[EMAIL_GROUP_3] = NAME_GROUP_3;
+
             let keys = Object.keys( emailGroups );
 
 
@@ -374,7 +392,9 @@
                         { range: [3, 5], email: keys[1] },
                         { range: [6, 8], email: keys[2] }
                     ];
-
+                    console.log( keys );
+                    console.log( groups );
+                    console.log( emailGroups );
 
                     // If approved, send email to the approval email
                 if (approvalStatus === "godkänd") {

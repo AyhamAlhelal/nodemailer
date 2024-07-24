@@ -21,13 +21,6 @@ const NAME_GROUP_3= process.env.NAME_GROUP_3;
 const APPROVAL_EMAIL= process.env.APPROVAL_EMAIL;
 const APPROVAL_NAME= process.env.APPROVAL_NAME;
 
-const emailGroups = {};
-emailGroups[EMAIL_GROUP_1] = NAME_GROUP_1;
-emailGroups[EMAIL_GROUP_2] = NAME_GROUP_2;
-emailGroups[EMAIL_GROUP_3] = NAME_GROUP_3;
-
-
-
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -38,7 +31,12 @@ app.use(express.json());
 // Endpoint to serve configuration data
 app.get('/config', (req, res) => {
     res.json({
-        emailGroups: emailGroups,
+        EMAIL_GROUP_1: EMAIL_GROUP_1,
+        EMAIL_GROUP_2: EMAIL_GROUP_2,
+        EMAIL_GROUP_3: EMAIL_GROUP_3,
+        NAME_GROUP_1: NAME_GROUP_1,
+        NAME_GROUP_2: NAME_GROUP_2,
+        NAME_GROUP_3: NAME_GROUP_3,
         APPROVAL_EMAIL: APPROVAL_EMAIL, 
         APPROVAL_NAME: APPROVAL_NAME
     });
