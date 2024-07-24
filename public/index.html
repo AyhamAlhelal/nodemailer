@@ -283,7 +283,7 @@
                 fetch('/config')
                     .then(response => response.json())
                     .then(data => {
-                        emailGroups = data.emailGroups;
+                        emailGroups =   JSON.parse(JSON.stringify( data.emailGroups ));
                         APPROVAL_EMAIL = data.APPROVAL_EMAIL;
                         APPROVAL_NAME = data.APPROVAL_NAME;
 
@@ -390,7 +390,7 @@
                             console.log( group.email );
                             console.log( emailGroups[group.email] );
                         if (problemsForEmail.length > 0) {
-                            sendEmail(APPROVAL_EMAIL, APPROVAL_NAME , busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
+                            sendEmail(group.email, emailGroups[group.email], busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
                         }
                     });
                 }
