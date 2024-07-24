@@ -5,18 +5,13 @@ require('dotenv').config();
 // const { EMAIL, PASSWORD } = require('../env.js')
 const EMAIL= process.env.EMAIL;
 const PASSWORD = process.env.PASSWORD;
+const SENDER_NAME= process.env.SENDER;
 
 /** send mail from real gmail account */
 const send_email = (req, res) => {
 
 
-    const { recipient, busNumber, date, problems, comment, travleDate, approvalStatus } = req.body;
-  
-
-    const nameList = { "a_alhelal@hotmail.com" : "Madeleine Dannqqvist",
-                       "laithayham@gmail.com" : "Jasper Antonsson",
-                       "ayham.alhelal@hotmail.com" : "Jasper Jardenfall" };
-
+    const { recipient_email, recipient_name, busNumber, date, problems, comment, travleDate, approvalStatus } = req.body;
 
     let config = {
         service : 'gmail',
@@ -31,14 +26,13 @@ const send_email = (req, res) => {
     let MailGenerator = new Mailgen({
         theme: "default",
         product : {
-            name: "Ahmad Albonia",
+            name: SENDER_NAME,
             link : 'https://mailgen.js/'
         }
     })
 // "Problems" : `${problems.join('\n')}`,
 let all_problems ="";
 problems.forEach(  (problem )=> { all_problems+= `<p>${problem}</p>\n`;  });
-console.log( all_problems );
 
  let dataList = [
     {
@@ -64,7 +58,7 @@ console.log( all_problems );
  }
  let response = {
     body: {
-        name : nameList[recipient],
+        name : recipient_name,
         intro: "Din bussrapport har kommit!",
         table : {
             data : dataList
@@ -72,13 +66,12 @@ console.log( all_problems );
         outro: "Tack på förhand!"
     }
 }
-
   
     let mail = MailGenerator.generate(response);
 
     let message = {
         from : EMAIL,
-        to : recipient,
+        to : recipient_email,
         subject: "Rapport om bussproblem",
         html: mail
     }

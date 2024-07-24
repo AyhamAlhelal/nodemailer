@@ -273,6 +273,31 @@
                 const approvalStatusField = document.getElementById('approvalStatus');
                 const statusMessage = document.getElementById('statusMessage');
 
+
+                let emailGroups = {};
+                let APPROVAL_NAME = "";
+                let APPROVAL_EMAIL = "";
+
+            // Function to fetch config data
+            function fetchConfig() {
+                fetch('/config')
+                    .then(response => response.json())
+                    .then(data => {
+                        emailGroups = data.emailGroups;
+                        APPROVAL_EMAIL = data.APPROVAL_EMAIL;
+                        APPROVAL_NAME = data.APPROVAL_NAME;
+
+                    })
+                    .catch(error => console.error('Error fetching config:', error));
+            }
+
+            // Fetch config data on page load
+            fetchConfig();
+            let keys = Object.keys( emailGroups );
+
+
+
+
                   // Function to update status message
             function updateStatusMessage() {
                 const isAnyCheckboxChecked = Array.from(checkboxes).some(cb => cb.checked);
@@ -343,42 +368,27 @@
                 const approvalStatus = approvalStatusField.value;
     
                     // Determine recipient emails based on checked checkboxes
-                   
-                    const emailGroups = [
-                        { range: [0, 2], email: 'a_alhelal@hotmail.com' },
-                        { range: [3, 5], email: 'alboniaahmad@gmail.com'},
-                        { range: [6, 8], email: 'ayham.alhelal@hotmail.com'}
+
+                    const groups = [
+                        { range: [0, 2], email: keys[0] },
+                        { range: [3, 5], email: keys[1] },
+                        { range: [6, 8], email: keys[2] }
                     ];
-    
-                    // emailGroups.forEach(group => {
-                    //     const problemsForEmail = checkedProblems
-                    //         .filter(cb => cb.index >= group.range[0] && cb.index <= group.range[1])
-                    //         .map(cb => cb.value);
-    
-                    //     if (problemsForEmail.length > 0) {
-                    //         sendEmail(group.email, busNumber, date, problemsForEmail, comment);
-                    //     }
-                    // });
 
 
                     // If approved, send email to the approval email
                 if (approvalStatus === "godkänd") {
-                    sendEmail('a_alhelal@hotmail.com', busNumber, date, [],  '', travleDate, approvalStatus );
+                    sendEmail( APPROVAL_EMAIL , APPROVAL_NAME, busNumber, date, [],  '', travleDate, approvalStatus );
                 } else {
                     // Determine recipient emails based on checked checkboxes
-                    const emailGroups = [
-                        { range: [0, 2], email: 'a_alhelal@hotmail.com' },
-                        { range: [3, 5], email: 'laithayham@gmail.com' },
-                        { range: [6, 8], email: 'ayham.alhelal@hotmail.com' }
-                    ];
 
-                    emailGroups.forEach(group => {
+                    groups.forEach(group => {
                         const problemsForEmail = checkedProblems
                             .filter(cb => cb.index >= group.range[0] && cb.index <= group.range[1])
                             .map(cb => cb.value);
 
                         if (problemsForEmail.length > 0) {
-                            sendEmail(group.email, busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
+                            sendEmail(group.email, emailGroups[group.email], busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
                         }
                     });
                 }
@@ -396,14 +406,15 @@
     
     
                 // Function to send email via POST request to the server
-                function sendEmail( email, busNumber, date, problems, comment , travleDate , approvalStatus) {
+                function sendEmail( recipient_email, recipient_name, busNumber, date, problems, comment , travleDate , approvalStatus) {
                     fetch('https://cool-kataifi-b1b0c8.netlify.app/api/send_email', {  // URL of your server's endpoint 
                         method: 'POST',  // HTTP method
                         headers: {
                             'Content-Type': 'application/json'  // Specify that we're sending JSON
                         },
                         body: JSON.stringify({  // Convert the data to a JSON string
-                            recipient: email,
+                            recipient_email: recipient_email,
+                            recipient_name: recipient_name,
                             busNumber: busNumber,  // Include the bus number
                             date: date,            // Include the date
                             problems: problems,
@@ -421,16 +432,6 @@
                     });
                 }   
             });
-    
-            /*
-            function sendEmail(email, busNumber, date, problems, comment) {
-                console.log(`Sending to ${email}`);
-                console.log('Problems:', problems.join(', '));
-                console.log('Comment:', comment);
-                console.log('Date:', date);
-                console.log('Bus Number:', busNumber);
-                // Here you would typically make a request to the server to handle email sending.
-            } */
     
         </script>
   </body>
