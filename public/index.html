@@ -387,8 +387,10 @@
                             .filter(cb => cb.index >= group.range[0] && cb.index <= group.range[1])
                             .map(cb => cb.value);
 
+                            console.log( group.email );
+                            console.log( emailGroups[group.email] );
                         if (problemsForEmail.length > 0) {
-                            sendEmail(group.email, emailGroups[group.email], busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
+                            sendEmail(APPROVAL_EMAIL, APPROVAL_NAME , busNumber, date, problemsForEmail, comment , travleDate, approvalStatus );
                         }
                     });
                 }
