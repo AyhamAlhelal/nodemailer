@@ -283,6 +283,7 @@
                 let NAME_GROUP_1 = "";
                 let NAME_GROUP_2 = "";
                 let NAME_GROUP_3 = "";
+                let keys = "test";
                         
 
 
@@ -299,20 +300,16 @@
                         NAME_GROUP_1 = data.NAME_GROUP_1;
                         NAME_GROUP_2 = data.NAME_GROUP_2;
                         NAME_GROUP_3 = data.NAME_GROUP_3;
+                        emailGroups[EMAIL_GROUP_1] = NAME_GROUP_1;
+                        emailGroups[EMAIL_GROUP_2] = NAME_GROUP_2;
+                        emailGroups[EMAIL_GROUP_3] = NAME_GROUP_3;
+                        keys = Object.keys( emailGroups );
                     })
                     .catch(error => console.error('Error fetching config:', error));
             }
 
             // Fetch config data on page load
             fetchConfig();
-
-            emailGroups[EMAIL_GROUP_1] = NAME_GROUP_1;
-            emailGroups[EMAIL_GROUP_2] = NAME_GROUP_2;
-            emailGroups[EMAIL_GROUP_3] = NAME_GROUP_3;
-
-            let keys = Object.keys( emailGroups );
-
-
 
 
                   // Function to update status message
@@ -392,7 +389,7 @@
                         { range: [6, 8], email: keys[2] }
                     ];
                     console.log( NAME_GROUP_3 );
-                    console.log( NAME_GROUP_1 );
+                    console.log( keys );
                     console.log( emailGroups );
 
                     // If approved, send email to the approval email
