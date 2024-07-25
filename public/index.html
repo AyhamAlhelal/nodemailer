@@ -291,7 +291,6 @@
                 fetch('/config')
                     .then(response => response.json())
                     .then(data => {
-                        emailGroups =   JSON.parse(JSON.stringify( data.emailGroups ));
                         APPROVAL_EMAIL = data.APPROVAL_EMAIL;
                         APPROVAL_NAME = data.APPROVAL_NAME;
                         EMAIL_GROUP_1 = data.EMAIL_GROUP_1;
