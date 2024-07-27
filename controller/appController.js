@@ -37,7 +37,7 @@ problems.forEach(  (problem )=> { all_problems+= `<p>${problem}</p>\n`;  });
  let dataList = [
     {
         "Bus" : busNumber,
-        "Skickat" : date,
+        "Kontrolldatum" : date,
         "Resedatum": travleDate,
         "Status": approvalStatus
     }
@@ -47,7 +47,7 @@ problems.forEach(  (problem )=> { all_problems+= `<p>${problem}</p>\n`;  });
     dataList = [
         {
             "Bus" : busNumber,
-            "Skickat" : date,
+            "Kontrolldatum" : date,
             "Resedatum": travleDate, 
             "Problem" : all_problems,
             "Beskrivning": comment,
